@@ -1,5 +1,5 @@
 // const BASE_URL = "http://127.0.0.1:8000";
-const BASE_URL = "https://fiber-backend.onrender.com";
+const BASE_URL = "https://fibers-backend.onrender.com";
 
 export const uploadImage = async (file) => {
   const formData = new FormData();
