@@ -9,6 +9,7 @@ import ParticleTable from "../../components/ParticleTable";
 import CanvasDraw from "../../components/CanvasDraw";
 import useAnalysis from "../../hooks/useAnalysis";
 import { RotateCcw, FileText  } from "lucide-react";
+import { BASE_URL } from "../../config";
 export default function Home() {
     const [fileDetails, setFileDetails] = useState(null);
     const [fibers, setFibers] = useState([]);
