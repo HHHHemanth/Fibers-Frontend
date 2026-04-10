@@ -34,7 +34,7 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
       // ✅ MASK OVERLAY
       if (showMask) {
         const maskImg = new Image();
-        maskImg.src = `http://127.0.0.1:8000/output/${imageId}/04_fiber_mask.png`;
+        maskImg.src = `${BASE_URL}/output/${imageId}/04_fiber_mask.png`;
 
         maskImg.onload = () => {
           ctx.globalAlpha = 0.4;
@@ -114,7 +114,7 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
   // SEND TO BACKEND
   // =========================
   const sendToBackend = async () => {
-    const res = await fetch("http://127.0.0.1:8000/trace", {
+    const res = await fetch("${BASE_URL}/trace", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +175,7 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
 
               onClear && onClear();
 
-              await fetch("http://127.0.0.1:8000/clear_fibers", {
+              await fetch("${BASE_URL}/clear_fibers", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ image_id: imageId }),

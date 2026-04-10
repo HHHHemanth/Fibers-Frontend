@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function ImageCard({ title, src, icon }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const fullUrl = `http://127.0.0.1:8000${src}`;
+  const fullUrl = `${BASE_URL}${src}`;
 
   return (
     <>

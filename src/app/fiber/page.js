@@ -178,7 +178,7 @@ export default function Home() {
 
     <CanvasDraw
       imageId={imageId}
-      imageUrl={`http://127.0.0.1:8000/output/${imageId}/01_cropped.png`}
+      imageUrl={`${BASE_URL}/output/${imageId}/01_cropped.png`}
       onTrace={(data) => {
         if (data.metrics) {
           setFibers((prev) => [
@@ -266,7 +266,7 @@ export default function Home() {
                 {/* PDF */}
                 {result?.pdf && (
 <a
-  href={`http://127.0.0.1:8000${result.pdf}`}
+  href={`${BASE_URL}${result.pdf}`}
   target="_blank"
   rel="noopener noreferrer"
   className="bg-[#5e8a86] text-white px-4 py-2 mt-6 inline-flex items-center gap-2 rounded-md cursor-pointer hover:bg-black transition"

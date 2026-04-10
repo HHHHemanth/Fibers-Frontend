@@ -1,6 +1,5 @@
-// const BASE_URL = "http://127.0.0.1:8000";
-const BASE_URL = "https://fibers-backend.onrender.com";
-
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "${BASE_URL}";
 export const uploadImage = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -16,7 +15,7 @@ export const uploadImage = async (file) => {
 };
 
 export async function analyzeImage(imageId) {
-  const res = await fetch(`http://127.0.0.1:8000/analyze/${imageId}`, {
+  const res = await fetch(`${BASE_URL}/analyze/${imageId}`, {
     method: "GET",
   });
 
