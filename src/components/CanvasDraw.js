@@ -226,7 +226,7 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
   <div className="flex items-center justify-center gap-2 mt-2">
     
     <span className="text-sm text-black">
-      Processing the image...
+      Processing...
     </span>
     <Loader />
   </div>
