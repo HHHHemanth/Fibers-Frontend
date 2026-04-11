@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import { BASE_URL } from "../config";
-
+import Loader from "../components/Loader";
 export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber }) {
   const canvasRef = useRef(null);
   const [points, setPoints] = useState([]);
@@ -164,9 +164,12 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
         {/* TOOL PANEL (RIGHT) */}
         <div className="flex flex-col gap-3 w-full lg:w-[200px] mt-4 lg:mt-0 lg:self-start">
 {!ready && (
-  <p className="text-sm text-gray-500 text-center">
-    Processing image... please wait
-  </p>
+  <div className="flex items-center justify-center gap-2 mt-2">
+    <Loader />
+    <span className="text-sm text-gray-500">
+      Processing the image...
+    </span>
+  </div>
 )}
           <button
             onClick={() => setPoints(points.slice(0, -1))}
