@@ -119,7 +119,7 @@ const StyledWrapper = styled.div`
   .loader {
     --fill-color: #000000;
     --shine-color: #afafaf33;
-    transform: scale(0.18); /* You can change the size */
+    transform: scale(0.14); /* You can change the size */
     width: 100px;
     height: auto;
     position: relative;
