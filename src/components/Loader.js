@@ -117,9 +117,9 @@ const Loader = () => {
 
 const StyledWrapper = styled.div`
   .loader {
-    --fill-color: #5c3d99;
-    --shine-color: #5c3d9933;
-    transform: scale(0.5); /* You can change the size */
+    --fill-color: #000000;
+    --shine-color: #afafaf33;
+    transform: scale(0.25); /* You can change the size */
     width: 100px;
     height: auto;
     position: relative;
