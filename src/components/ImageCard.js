@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import { BASE_URL } from "../config";
 export default function ImageCard({ title, src, icon }) {
   const [isOpen, setIsOpen] = useState(false);
 

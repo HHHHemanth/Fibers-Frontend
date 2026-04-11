@@ -65,34 +65,39 @@ function LandingPage() {
             <div className="relative z-40 pointer-events-auro">
 
                 {/* Header/Nav (Logos) */}
-                <header className="px-6 py-6 md:px-12 flex justify-between items-center h-24">
-                    <Link href="/">
-                        <img
-                            src="/cmtilogo.png"
-                            alt="CMTI Logo"
-                            className="h-14 md:h-16 object-contain cursor-pointer drop-shadow-lg "
-                        />
-                    </Link>
-                    <img
-                        src="/fiberLogo.png"
-                        alt="Fiber Logo"
-                        className="h-14 md:h-16 object-contain "
-                    />
-                </header>
+<header className="px-4 py-3 md:px-12 md:py-6 flex justify-between items-center h-auto">
+
+  <Link href="/">
+    <img
+      src="/cmtilogo.png"
+      alt="CMTI Logo"
+      className="h-8 sm:h-10 md:h-14 lg:h-16 object-contain cursor-pointer drop-shadow-lg"
+    />
+  </Link>
+
+  <img
+    src="/fiberLogo.png"
+    alt="Fiber Logo"
+    className="h-8 sm:h-10 md:h-14 lg:h-16 object-contain"
+  />
+
+</header>
 
                 <section className="min-h-[85vh] flex items-center justify-center px-6 text-center pt-4 pb-20">
                     <div
                         className="relative bg-white/5 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl p-12 text-center max-w-xl w-full z-40"
                     >
-                        <div className="flex justify-center items-center text-center z-40">
-                            <BlurText
-                                text="WELCOME TO"
-                                delay={500}
-                                animateBy="words"
-                                direction="top"
-                                className="text-4xl md:text-5xl font-extrabold mt-10 mb-6 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
-                            />
-                        </div>
+<div className="flex flex-col items-center justify-center text-center z-40 w-full">
+
+  <BlurText
+    text="WELCOME TO"
+    delay={500}
+    animateBy="words"
+    direction="top"
+    className="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-10 mb-6 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+  />
+
+</div>
                         <GradientText
                             colors={["#ffffff", "#5e8a86", "#ffffff"]}
                             animationSpeed={4}
@@ -101,9 +106,9 @@ function LandingPage() {
                         >
                             FIBER & PARTICLE ANALYSIS SYSTEM
                         </GradientText>
-                        <p className="text-gray-200 mb-10">
-                            Advanced vision-based system for detecting, tracing, and measuring fibers and particles with high precision.
-                        </p>
+<p className="text-sm sm:text-base md:text-md text-gray-200 mb-8 md:mb-10 px-4 sm:px-0 max-w-2xl mx-auto">
+  Advanced vision-based system for detecting, tracing, and measuring fibers and particles with high precision.
+</p>
 <button
   type="button"
   onClick={() => router.push("/fiber")}

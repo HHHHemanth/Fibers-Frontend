@@ -21,7 +21,6 @@ const upload = async () => {
   const data = await uploadImage(file);
 
   setImageId(data.image_id);
-
   // 🔥 THIS IS THE MISSING LINE
   setFileMeta(data);
 

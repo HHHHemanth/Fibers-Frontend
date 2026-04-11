@@ -1,5 +1,6 @@
 import ImageCard from "./ImageCard";
 import { Image, BarChart3, Circle, Shapes } from "lucide-react";
+import { BASE_URL } from "../config";
 export default function ImageViewer({ result }) {
   if (!result) return null;
 

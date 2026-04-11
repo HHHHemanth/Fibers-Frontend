@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";   // ✅ FIX 1
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Upload from "../../components/Upload";
 import AnalyzeButton from "../../components/AnalyzeButton";
@@ -13,7 +13,11 @@ import { BASE_URL } from "../../config";
 export default function Home() {
     const [fileDetails, setFileDetails] = useState(null);
     const [fibers, setFibers] = useState([]);
-    
+    const [imageUrl, setImageUrl] = useState(null);
+
+
+
+
 
     const {
     setFile,
@@ -25,6 +29,24 @@ export default function Home() {
     imageId,
     fileMeta
     } = useAnalysis();
+        useEffect(() => {
+  if (!imageId) return;
+
+  const tryLoad = () => {
+    const img = new Image();
+    img.src = `${BASE_URL}/output/${imageId}/01_cropped.png`;
+
+    img.onload = () => {
+      setImageUrl(img.src);   // ✅ set only when ready
+    };
+
+    img.onerror = () => {
+      setTimeout(tryLoad, 500);  // retry until ready
+    };
+  };
+
+  tryLoad();
+}, [imageId]);
     console.log("FILE META:", fileMeta);
     return (
         <div className="bg-white text-black min-h-screen">
@@ -38,7 +60,7 @@ export default function Home() {
     <img
       src="/cmtilogo.png"
       alt="CMTI Logo"
-      className="h-15 bg-white/10 p-1.5 rounded-lg"
+      className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
     />
   </Link>
 
@@ -47,7 +69,7 @@ export default function Home() {
     <img
       src="/fiberLogo.png"
       alt="MHI Logo"
-      className="h-15 bg-white/10 p-1.5 rounded-lg"
+      className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
     />
   </Link>
 
@@ -170,7 +192,7 @@ export default function Home() {
 
 </div>
 {/* CANVAS CARD */}
-{imageId && (
+{imageUrl && (
   <div className="bg-white border rounded-xl shadow-md p-6 mb-6">
 
     <h2 className="text-lg font-semibold mb-4 text-[#5e8a86]">
@@ -179,7 +201,7 @@ export default function Home() {
 
     <CanvasDraw
       imageId={imageId}
-      imageUrl={`${BASE_URL}/output/${imageId}/01_cropped.png`}
+      imageUrl={imageUrl}
       onTrace={(data) => {
         if (data.metrics) {
           setFibers((prev) => [

@@ -1,9 +1,9 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { BASE_URL } from "../config"; 
 
 export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndoFiber }) {
   const canvasRef = useRef(null);
-
   const [points, setPoints] = useState([]);
   const [paths, setPaths] = useState([]);
   const [showMask, setShowMask] = useState(false);
@@ -29,7 +29,11 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
       });
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+canvas.width = img.width;
+canvas.height = img.height;
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.drawImage(img, 0, 0);
 
       // ✅ MASK OVERLAY
       if (showMask) {
@@ -114,7 +118,9 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
   // SEND TO BACKEND
   // =========================
   const sendToBackend = async () => {
-    const res = await fetch("${BASE_URL}/trace", {
+      console.log("BASE_URL =", BASE_URL);
+      console.log("FINAL URL =", `${BASE_URL}/trace`);
+    const res = await fetch(`${BASE_URL}/trace`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,25 +146,23 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
 
   return (
     <div>
-      <div className="flex flex-col lg:flex-row items-start gap-10 max-w-fit mx-80">
+      <div className="flex flex-col lg:flex-row items-start gap-6 w-full max-w-7xl mx-auto">
 
         {/* CANVAS (LEFT - BIGGER) */}
-<div className="flex-shrink-0">
-  <div className="bg-white p-4 rounded-xl shadow-lg inline-block">
+<div className="flex-1 w-full">
+  <div className="bg-white p-4 rounded-xl shadow-lg w-full">
 
-    <canvas
-      ref={canvasRef}
-      width={900}   // slightly increased (safe)
-      height={600}
-      onClick={handleClick}
-      className="border rounded-lg cursor-crosshair"
-    />
+<canvas
+  ref={canvasRef}
+  onClick={handleClick}
+  className="border rounded-lg cursor-crosshair w-full h-auto max-h-[75vh]"
+/>
 
   </div>
 </div>
 
         {/* TOOL PANEL (RIGHT) */}
-        <div className="flex flex-col gap-3 w-[200px] mt-40">
+        <div className="flex flex-col gap-3 w-full lg:w-[200px] mt-4 lg:mt-0 lg:self-start">
 
           <button
             onClick={() => setPoints(points.slice(0, -1))}
@@ -175,7 +179,7 @@ export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndo
 
               onClear && onClear();
 
-              await fetch("${BASE_URL}/clear_fibers", {
+              await fetch(`${BASE_URL}/clear_fibers`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ image_id: imageId }),
