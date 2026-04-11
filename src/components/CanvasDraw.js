@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { BASE_URL } from "../config"; 
 
-export default function CanvasDraw({ imageId, imageUrl, onTrace, onClear, onUndoFiber }) {
+export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber }){
   const canvasRef = useRef(null);
   const [points, setPoints] = useState([]);
   const [paths, setPaths] = useState([]);
@@ -202,14 +202,14 @@ ctx.drawImage(img, 0, 0);
           </button>
 
           <button
-            onClick={sendToBackend}
+            onClick={sendToBackend} disabled={!ready}
             className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer"
           >
             Trace Fiber
           </button>
 
           <button
-            onClick={() => setShowMask(!showMask)}
+            onClick={() => setShowMask(!showMask) } disabled={!ready}
             className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer "
           >
             Toggle Mask
