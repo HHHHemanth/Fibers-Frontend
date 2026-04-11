@@ -163,14 +163,7 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
 
         {/* TOOL PANEL (RIGHT) */}
         <div className="flex flex-col gap-3 w-full lg:w-[200px] mt-4 lg:mt-0 lg:self-start">
-{!ready && (
-  <div className="flex items-center justify-center gap-2 mt-2">
-    <Loader />
-    <span className="text-sm text-gray-500">
-      Processing the image...
-    </span>
-  </div>
-)}
+
           <button
             onClick={() => setPoints(points.slice(0, -1))}
             className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer"
@@ -229,7 +222,15 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
           >
             Toggle Mask
           </button>
-
+{!ready && (
+  <div className="flex items-center justify-center gap-2 mt-2">
+    
+    <span className="text-sm text-black">
+      Processing the image...
+    </span>
+    <Loader />
+  </div>
+)}
         </div>
       </div>
     </div>
