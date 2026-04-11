@@ -9,6 +9,7 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
   const [showMask, setShowMask] = useState(false);
   const [imgSize, setImgSize] = useState({ width: 1, height: 1 });
   const [fiberMetrics, setFiberMetrics] = useState([]);
+  const [traceError, setTraceError] = useState(null);
   // =========================
   // DRAW IMAGE + POINTS + PATH
   // =========================
@@ -131,12 +132,22 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
       }),
     });
 
-    const data = await res.json();
+const data = await res.json();
 
-    setPaths((prev) => [...prev, data.path || []]);
-    setFiberMetrics((prev) => [...prev, data.metrics]);
-    onTrace && onTrace(data);
+if (!data.error && data.path && data.path.length > 0) {
+  setPaths((prev) => [...prev, data.path]);
+  setFiberMetrics((prev) => [...prev, data.metrics]);
 
+  onTrace && onTrace(data);
+} else {
+  // ✅ SET ERROR MESSAGE
+  setTraceError(data.error || "Trace failed");
+
+  // 🔥 AUTO CLEAR AFTER 5 SEC
+  setTimeout(() => {
+    setTraceError(null);
+  }, 5000);
+}
     console.log("Sending points:", points);
     console.log("Response:", data);
 
@@ -230,6 +241,11 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
     </span>
     <Loader />
   </div>
+)}
+{traceError && (
+  <p className="text-xs text-red-500 text-center mt-1">
+    {traceError}
+  </p>
 )}
         </div>
       </div>
