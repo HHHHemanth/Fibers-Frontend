@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { BASE_URL } from "../config"; 
+import { BASE_URL } from "../config";
 
-export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber }){
+export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber }) {
   const canvasRef = useRef(null);
   const [points, setPoints] = useState([]);
   const [paths, setPaths] = useState([]);
@@ -29,11 +29,11 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
       });
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-canvas.width = img.width;
-canvas.height = img.height;
+      canvas.width = img.width;
+      canvas.height = img.height;
 
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-ctx.drawImage(img, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
 
       // ✅ MASK OVERLAY
       if (showMask) {
@@ -118,8 +118,8 @@ ctx.drawImage(img, 0, 0);
   // SEND TO BACKEND
   // =========================
   const sendToBackend = async () => {
-      console.log("BASE_URL =", BASE_URL);
-      console.log("FINAL URL =", `${BASE_URL}/trace`);
+    console.log("BASE_URL =", BASE_URL);
+    console.log("FINAL URL =", `${BASE_URL}/trace`);
     const res = await fetch(`${BASE_URL}/trace`, {
       method: "POST",
       headers: {
@@ -149,21 +149,25 @@ ctx.drawImage(img, 0, 0);
       <div className="flex flex-col lg:flex-row items-start gap-6 w-full max-w-7xl mx-auto">
 
         {/* CANVAS (LEFT - BIGGER) */}
-<div className="flex-1 w-full">
-  <div className="bg-white p-4 rounded-xl shadow-lg w-full">
+        <div className="flex-1 w-full">
+          <div className="bg-white p-4 rounded-xl shadow-lg w-full">
 
-<canvas
-  ref={canvasRef}
-  onClick={handleClick}
-  className="border rounded-lg cursor-crosshair w-full h-auto max-h-[75vh]"
-/>
+            <canvas
+              ref={canvasRef}
+              onClick={handleClick}
+              className="border rounded-lg cursor-crosshair w-full h-auto max-h-[75vh]"
+            />
 
-  </div>
-</div>
+          </div>
+        </div>
 
         {/* TOOL PANEL (RIGHT) */}
         <div className="flex flex-col gap-3 w-full lg:w-[200px] mt-4 lg:mt-0 lg:self-start">
-
+{!ready && (
+  <p className="text-sm text-gray-500 text-center">
+    Processing image... please wait
+  </p>
+)}
           <button
             onClick={() => setPoints(points.slice(0, -1))}
             className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer"
@@ -202,15 +206,23 @@ ctx.drawImage(img, 0, 0);
           </button>
 
           <button
-            onClick={sendToBackend} disabled={!ready}
-            className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer"
+            onClick={sendToBackend}
+            disabled={!ready}
+            className={`py-2 rounded-md font-medium ${ready
+                ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
+                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              }`}
           >
             Trace Fiber
           </button>
 
           <button
-            onClick={() => setShowMask(!showMask) } disabled={!ready}
-            className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer "
+            onClick={() => setShowMask(!showMask)}
+            disabled={!ready}
+            className={`py-2 rounded-md font-medium ${ready
+                ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
+                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              }`}
           >
             Toggle Mask
           </button>
