@@ -15,8 +15,8 @@ export default function Home() {
   const [fibers, setFibers] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
   const [ready, setReady] = useState(false);
-
-
+  const [stepPercent, setStepPercent] = useState(5);
+  const [lockedStep, setLockedStep] = useState(false);
 
 
   const {
@@ -182,11 +182,53 @@ useEffect(() => {
           </div>
 
         </div>
+<div className="mb-4 max-w-md">
+  <label className="text-sm font-medium text-gray-700">
+    Fiber Sampling Step (%)
+  </label>
+
+  <div className="flex items-center gap-2 mt-2">
+    <button
+      disabled={uploading || lockedStep}
+      onClick={() => setStepPercent((prev) => Math.max(1, prev - 1))}
+      className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+    >
+      -
+    </button>
+
+    <input
+      type="number"
+      min={1}
+      max={100}
+      value={stepPercent}
+      disabled={uploading || lockedStep}
+      onChange={(e) =>
+        setStepPercent(Math.max(1, Math.min(100, Number(e.target.value))))
+      }
+      className="w-20 text-center border rounded px-2 py-1 disabled:bg-gray-100"
+    />
+
+    <button
+      disabled={uploading || lockedStep}
+      onClick={() => setStepPercent((prev) => Math.min(100, prev + 1))}
+      className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+    >
+      +
+    </button>
+  </div>
+
+  <p className="text-xs text-gray-600 mt-1">
+    {stepPercent}%
+  </p>
+</div>
         <div className="w-full mb-6 flex gap-4">
 
           {/* UPLOAD BUTTON */}
           <button
-            onClick={upload}
+  onClick={() => {
+    setLockedStep(true);   // 🔥 LOCK HERE
+    upload();
+  }}
             disabled={uploading}
             className={`flex-1 py-3 rounded-md font-medium transition flex items-center justify-center gap-2
     ${uploading
@@ -226,6 +268,7 @@ useEffect(() => {
               imageId={imageId}
               imageUrl={imageUrl}
               ready={ready}
+              stepPercent={stepPercent}   
               onTrace={(data) => {
                 if (data.metrics) {
                   setFibers((prev) => [
@@ -242,7 +285,6 @@ useEffect(() => {
                 setFibers((prev) => prev.slice(0, -1));
               }}
             />
-
           </div>
         )}
 

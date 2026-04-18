@@ -40,34 +40,51 @@ export default function ImageViewer({ result }) {
   </div>
 
   {/* FULL WIDTH HISTOGRAMS */}
-  <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
-    <div className="bg-white rounded-xl shadow-md p-3">
-      <ImageCard 
-  title="Fiber Histogram" 
-  src={result.fiber_hist} 
-  icon={<BarChart3 />} 
-/>
-    </div>
-
-    <div className="bg-white rounded-xl shadow-md p-3">
-      <ImageCard 
-  title="Inner Histogram" 
-  src={result.inner_hist} 
-  icon={<BarChart3 />} 
-/>
-    </div>
-
-    <div className="bg-white rounded-xl shadow-md p-3">
-      <ImageCard 
-  title="Outer Histogram" 
-  src={result.outer_hist} 
-  icon={<BarChart3 />} 
-/>
-    </div>
-
+  <div className="bg-white rounded-xl shadow-md p-3">
+    <ImageCard 
+      title="Fiber Histogram" 
+      src={result.fiber_hist} 
+      icon={<BarChart3 />} 
+    />
   </div>
 
+  <div className="bg-white rounded-xl shadow-md p-3">
+    <ImageCard 
+      title="Inner Histogram" 
+      src={result.inner_hist} 
+      icon={<BarChart3 />} 
+    />
+  </div>
+
+  <div className="bg-white rounded-xl shadow-md p-3">
+    <ImageCard 
+      title="Outer Histogram" 
+      src={result.outer_hist} 
+      icon={<BarChart3 />} 
+    />
+  </div>
+
+  {/* 🔥 NEW */}
+  <div className="bg-white rounded-xl shadow-md p-3">
+    <ImageCard 
+      title="Fiber Width Distribution" 
+      src={result.fiber_width_dist} 
+      icon={<BarChart3 />} 
+    />
+  </div>
+
+  {/* 🔥 NEW */}
+  <div className="bg-white rounded-xl shadow-md p-3">
+    <ImageCard 
+      title="Fiber Length Distribution" 
+      src={result.fiber_length_dist} 
+      icon={<BarChart3 />} 
+    />
+  </div>
+
+</div>
 </div>
   );
 }

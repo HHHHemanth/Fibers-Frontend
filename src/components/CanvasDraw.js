@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { BASE_URL } from "../config";
 import Loader from "../components/Loader";
-export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber }) {
+export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear, onUndoFiber, stepPercent }) {
   const canvasRef = useRef(null);
   const [points, setPoints] = useState([]);
   const [paths, setPaths] = useState([]);
@@ -128,26 +128,27 @@ export default function CanvasDraw({ imageId, imageUrl, ready, onTrace, onClear,
       },
       body: JSON.stringify({
         image_id: imageId,
-        points: points,
+        points,
+        step_percent: stepPercent
       }),
     });
 
-const data = await res.json();
+    const data = await res.json();
 
-if (!data.error && data.path && data.path.length > 0) {
-  setPaths((prev) => [...prev, data.path]);
-  setFiberMetrics((prev) => [...prev, data.metrics]);
+    if (!data.error && data.path && data.path.length > 0) {
+      setPaths((prev) => [...prev, data.path]);
+      setFiberMetrics((prev) => [...prev, data.metrics]);
 
-  onTrace && onTrace(data);
-} else {
-  // ✅ SET ERROR MESSAGE
-  setTraceError(data.error || "Trace failed");
+      onTrace && onTrace(data);
+    } else {
+      // ✅ SET ERROR MESSAGE
+      setTraceError(data.error || "Trace failed");
 
-  // 🔥 AUTO CLEAR AFTER 5 SEC
-  setTimeout(() => {
-    setTraceError(null);
-  }, 5000);
-}
+      // 🔥 AUTO CLEAR AFTER 5 SEC
+      setTimeout(() => {
+        setTraceError(null);
+      }, 5000);
+    }
     console.log("Sending points:", points);
     console.log("Response:", data);
 
@@ -202,9 +203,19 @@ if (!data.error && data.path && data.path.length > 0) {
           </button>
 
           <button
-            onClick={() => {
+            onClick={async () => {
               setPaths((prev) => prev.slice(0, -1));
               setFiberMetrics((prev) => prev.slice(0, -1));
+
+              // 🔥 CALL BACKEND
+              await fetch(`${BASE_URL}/undo_fiber`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ image_id: imageId }),
+              });
+
               onUndoFiber && onUndoFiber();
             }}
             className="bg-black text-white py-2 hover:bg-[#5e8a86] rounded-md font-medium cursor-pointer "
@@ -216,8 +227,8 @@ if (!data.error && data.path && data.path.length > 0) {
             onClick={sendToBackend}
             disabled={!ready}
             className={`py-2 rounded-md font-medium ${ready
-                ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
-                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
+              : "bg-gray-400 text-gray-700 cursor-not-allowed"
               }`}
           >
             Trace Fiber
@@ -227,26 +238,26 @@ if (!data.error && data.path && data.path.length > 0) {
             onClick={() => setShowMask(!showMask)}
             disabled={!ready}
             className={`py-2 rounded-md font-medium ${ready
-                ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
-                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              ? "bg-black text-white hover:bg-[#5e8a86] cursor-pointer"
+              : "bg-gray-400 text-gray-700 cursor-not-allowed"
               }`}
           >
             Toggle Mask
           </button>
-{!ready && (
-  <div className="flex items-center justify-center gap-2 mt-2">
-    
-    <span className="text-sm text-black">
-      Processing...
-    </span>
-    <Loader />
-  </div>
-)}
-{traceError && (
-  <p className="text-xs text-red-500 text-center mt-1">
-    {traceError}
-  </p>
-)}
+          {!ready && (
+            <div className="flex items-center justify-center gap-2 mt-2">
+
+              <span className="text-sm text-black">
+                Processing...
+              </span>
+              <Loader />
+            </div>
+          )}
+          {traceError && (
+            <p className="text-xs text-red-500 text-center mt-1">
+              {traceError}
+            </p>
+          )}
         </div>
       </div>
     </div>

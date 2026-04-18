@@ -1,8 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Upload({ setFile, upload }) {
   const fileRef = useRef();
-
+  const [stepPercent, setStepPercent] = useState(5);
   return (
     <div>
       {/* Hidden input */}
@@ -23,7 +23,26 @@ export default function Upload({ setFile, upload }) {
       >
         Choose File
       </button>
+<div className="mt-3">
+  <label className="text-sm font-medium text-gray-700">
+    Sampling Step (%)
+  </label>
 
+  <input
+    type="range"
+    min="1"
+    max="20"
+    value={stepPercent}
+    onChange={(e) => setStepPercent(Number(e.target.value))}
+    className="w-full mt-1 accent-[#5e8a86]"
+  />
+
+  <p className="text-xs text-gray-600 mt-1">
+    {stepPercent}%
+  </p>
+</div>
+
+<p>Step: {stepPercent}%</p>
       {/* Upload button */}
       <button
         onClick={upload}
