@@ -8,19 +8,19 @@ import {
 
 const cards = [
   {
-    title: "Polygon Particle Detection",
-    desc: "Shape-based particle detection using polygon contour approximation",
-    img: "/particlesPolygon.png",
+    title: "Convexity Analysis",
+    desc: "Polygon-based contour approximation for convexity, solidity, and particle boundary characterization",
+    img: "/particlesConvexity.png",
   },
   {
-    title: "Fiber Path Mapping",
-    desc: "Traced fiber paths with precise length measurement overlay",
+    title: "Fiber Path Reconstruction",
+    desc: "Graph-based fiber tracing with interpolated centerline path and real-time length estimation",
     img: "/fiberPath.png",
   },
   {
-    title: "Circular Particle Analysis",
-    desc: "AInner and outer diameter estimation using circular fitting",
-    img: "/particlesCircles.png",
+    title: "Outer Diameter Estimation",
+    desc: "Automated outer diameter extraction using contour fitting and particle morphology analysis.",
+    img: "/particlesOuter.png",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function CardsSection() {
   {card.desc}
 </CardItem>
 
-            <CardItem translateZ="100" className="w-full mt-4">
+            <CardItem translateZ="100" className="w-full mt-4 mb-10">
               <img
                 src={card.img}
                 className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"

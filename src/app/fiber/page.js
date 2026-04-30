@@ -384,18 +384,25 @@ useEffect(() => {
 
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Contact & Support</h4>
+              <h4 className="text-white font-semibold mb-4">Research & References</h4>
               <ul className="space-y-2 text-sm z-50 relative pointer-events-auto">
-                <li className="flex items-center gap-2">
-                  support@cmti.res.in
+                <li className="flex items-center gap-2 px-1">
+                  ISO 13322 Image Analysis Standards
                 </li>
-                <li className="flex items-center gap-2">
-                  +91 (80) 9876 5234
+                <li className="flex items-center gap-2 px-1">
+                  Particle Morphology References
                 </li>
-                <li className="mt-4 flex flex-col gap-1">
-                  <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                  <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
+                <li className="flex items-center gap-2 px-1">
+                  Fiber Segmentation Methodology
                 </li>
+<li className="mt-4">
+  <Link
+    href="/references"
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-300"
+  >
+    View Full References →
+  </Link>
+</li>              
               </ul>
             </div>
 

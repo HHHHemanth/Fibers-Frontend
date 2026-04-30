@@ -261,47 +261,54 @@ function LandingPage() {
                 </section>
 
                 {/* 4. Footer Section */}
-                <footer className="bg-black text-slate-300 -mt-7 py-20 px-6">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
+      <footer className="bg-black text-slate-300 -mt-7 py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
 
-                            <div className="md:col-span-2">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <img src="/cmtilogo.png" alt="CMTI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
-                                    <img src="/fiberLogo.png" alt="MHI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Fiber & Particle Analysis System</h3>
-                                <p className="text-sm text-slate-400 max-w-sm mb-4">
-                                    High-precision system for fiber tracing, particle detection, and automated measurement reporting.
-                                </p>
-                            </div>
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <img src="/cmtilogo.png" alt="CMTI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
+                <img src="/fiberLogo.png" alt="MHI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Fiber & Particle Analysis System</h3>
+              <p className="text-sm text-slate-400 max-w-sm mb-4">
+                High-precision system for fiber tracing, particle detection, and automated measurement reporting.
+              </p>
+            </div>
 
 
 
-                            <div>
-                                <h4 className="text-white font-semibold mb-4">Contact & Support</h4>
-                                <ul className="space-y-2 text-sm z-50 relative pointer-events-auto">
-                                    <li className="flex items-center gap-2">
-                                        support@cmti.res.in
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        +91 (80) 9876 5234
-                                    </li>
-                                    <li className="mt-4 flex flex-col gap-1">
-                                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                                        <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
-                                    </li>
-                                </ul>
-                            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Research & References</h4>
+              <ul className="space-y-2 text-sm z-50 relative pointer-events-auto">
+                <li className="flex items-center gap-2 px-1">
+                  ISO 13322 Image Analysis Standards
+                </li>
+                <li className="flex items-center gap-2 px-1">
+                  Particle Morphology References
+                </li>
+                <li className="flex items-center gap-2 px-1">
+                  Fiber Segmentation Methodology
+                </li>
+<li className="mt-4">
+  <Link
+    href="/references"
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-300"
+  >
+    View Full References →
+  </Link>
+</li>              
+              </ul>
+            </div>
 
-                        </div>
+          </div>
 
-                        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-                            <p>&copy; {new Date().getFullYear()} Central Manufacturing Technology Institute. All rights reserved.</p>
-                            <p className="mt-2 md:mt-0 font-mono">v1.0.0</p>
-                        </div>
-                    </div>
-                </footer>
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <p>&copy; {new Date().getFullYear()} Central Manufacturing Technology Institute. All rights reserved.</p>
+            <p className="mt-2 md:mt-0 font-mono">v1.0.0</p>
+          </div>
+        </div>
+      </footer>
 
             </div>
         </div>
