@@ -23,20 +23,26 @@ export default function ImageViewer({ result }) {
 
     <div className="bg-white rounded-xl shadow-md p-3">
       <ImageCard 
-  title="Particle Polygon" 
-  src={result.polygon} 
+  title="Particle Convexity"
+  src={result.convexity}
   icon={<Shapes />} 
 />
     </div>
 
     <div className="bg-white rounded-xl shadow-md p-3">
      <ImageCard 
-  title="Particle Circles" 
-  src={result.circles} 
+  title="Particle Circularity"
+  src={result.circularity}
   icon={<Circle />} 
 />
     </div>
-
+<div className="bg-white rounded-xl shadow-md p-3">
+  <ImageCard
+    title="Particle Outer Diameter"
+    src={result.outer_particles}
+    icon={<Circle />}
+  />
+</div>
   </div>
 
   {/* FULL WIDTH HISTOGRAMS */}
@@ -51,11 +57,11 @@ export default function ImageViewer({ result }) {
   </div>
 
   <div className="bg-white rounded-xl shadow-md p-3">
-    <ImageCard 
-      title="Inner Histogram" 
-      src={result.inner_hist} 
-      icon={<BarChart3 />} 
-    />
+<ImageCard
+  title="Feret AR Distribution"
+  src={result.feret_ar_hist}
+  icon={<BarChart3 />}
+/>
   </div>
 
   <div className="bg-white rounded-xl shadow-md p-3">

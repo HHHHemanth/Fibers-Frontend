@@ -14,17 +14,15 @@ export default function ParticleTable({ particles }) {
           <thead className="text-sm bg-gray-100 border-b border-gray-200">
             <tr>
               <th className="px-6 py-3 font-medium">ID</th>
-              <th className="px-6 py-3 font-medium">Length</th>
-              <th className="px-6 py-3 font-medium">MinW</th>
-              <th className="px-6 py-3 font-medium">MaxW</th>
-              <th className="px-6 py-3 font-medium">AR Min</th>
-              <th className="px-6 py-3 font-medium">AR Max</th>
+              <th className="px-6 py-3 font-medium">Perimeter</th>
+              <th className="px-6 py-3 font-medium">Area</th>
+              <th className="px-6 py-3 font-medium">Convex Area</th>
               <th className="px-6 py-3 font-medium">Feret Max</th>
               <th className="px-6 py-3 font-medium">Feret Min</th>
-              <th className="px-6 py-3 font-medium">Inner D</th>
+              <th className="px-6 py-3 font-medium">Feret AR</th>
               <th className="px-6 py-3 font-medium">Outer D</th>
-              <th className="px-6 py-3 font-medium">Sphericity</th>
-              <th className="px-6 py-3 font-medium">Sides</th>
+              <th className="px-6 py-3 font-medium">Circularity</th>
+              <th className="px-6 py-3 font-medium">Solidity</th>
             </tr>
           </thead>
 
@@ -39,17 +37,15 @@ export default function ParticleTable({ particles }) {
                   {p.id}
                 </td>
 
-                <td className="px-6 py-3">{p.length?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.min_width?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.max_width?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.ar_min?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.ar_max?.toFixed(2)}</td>
+                <td className="px-6 py-3">{p.perimeter?.toFixed(2)}</td>
+                <td className="px-6 py-3">{p.area?.toFixed(2)}</td>
+                <td className="px-6 py-3">{p.convex_area?.toFixed(2)}</td>
                 <td className="px-6 py-3">{p.feret_max?.toFixed(2)}</td>
                 <td className="px-6 py-3">{p.feret_min?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.inner_d?.toFixed(2)}</td>
+                <td className="px-6 py-3">{p.feret_ar?.toFixed(2)}</td>
                 <td className="px-6 py-3">{p.outer_d?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.sphericity?.toFixed(2)}</td>
-                <td className="px-6 py-3">{p.sides}</td>
+                <td className="px-6 py-3">{p.circularity?.toFixed(2)}</td>
+                <td className="px-6 py-3">{p.solidity?.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
