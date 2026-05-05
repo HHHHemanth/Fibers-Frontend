@@ -51,23 +51,34 @@ export default function Home() {
 useEffect(() => {
   if (!imageId) return;
 
+  let isMounted = true;
+
   const checkStatus = async () => {
     try {
       const res = await fetch(`${BASE_URL}/status/${imageId}`);
       const data = await res.json();
 
+      if (!isMounted) return;
+
       if (data.ready) {
         setReady(true);
       } else {
-        setTimeout(checkStatus, 500);
+        setTimeout(checkStatus, 5000); // ✅ 5 seconds
       }
     } catch (err) {
       console.error("Status error:", err);
+
+      // retry even on error (network glitch)
+      setTimeout(checkStatus, 5000);
     }
   };
 
-  setReady(false);   // reset on new upload
+  setReady(false);
   checkStatus();
+
+  return () => {
+    isMounted = false; // prevent memory leak
+  };
 }, [imageId]);
 
   console.log("FILE META:", fileMeta);
