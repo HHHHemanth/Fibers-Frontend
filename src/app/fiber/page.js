@@ -10,6 +10,9 @@ import CanvasDraw from "../../components/CanvasDraw";
 import useAnalysis from "../../hooks/useAnalysis";
 import { RotateCcw, FileText } from "lucide-react";
 import { BASE_URL } from "../../config";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+import * as UTIF from "utif";
 export default function Home() {
   const [fileDetails, setFileDetails] = useState(null);
   const [fibers, setFibers] = useState([]);
@@ -17,6 +20,16 @@ export default function Home() {
   const [ready, setReady] = useState(false);
   const [stepPercent, setStepPercent] = useState(5);
   const [lockedStep, setLockedStep] = useState(false);
+
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const [crop, setCrop] = useState({
+    unit: "%",
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 100,
+  });
 
 
   const {
@@ -48,38 +61,38 @@ export default function Home() {
     tryLoad();
   }, [imageId]);
 
-useEffect(() => {
-  if (!imageId) return;
+  useEffect(() => {
+    if (!imageId) return;
 
-  let isMounted = true;
+    let isMounted = true;
 
-  const checkStatus = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/status/${imageId}`);
-      const data = await res.json();
+    const checkStatus = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/status/${imageId}`);
+        const data = await res.json();
 
-      if (!isMounted) return;
+        if (!isMounted) return;
 
-      if (data.ready) {
-        setReady(true);
-      } else {
-        setTimeout(checkStatus, 5000); // ✅ 5 seconds
+        if (data.ready) {
+          setReady(true);
+        } else {
+          setTimeout(checkStatus, 5000); // ✅ 5 seconds
+        }
+      } catch (err) {
+        console.error("Status error:", err);
+
+        // retry even on error (network glitch)
+        setTimeout(checkStatus, 5000);
       }
-    } catch (err) {
-      console.error("Status error:", err);
+    };
 
-      // retry even on error (network glitch)
-      setTimeout(checkStatus, 5000);
-    }
-  };
+    setReady(false);
+    checkStatus();
 
-  setReady(false);
-  checkStatus();
-
-  return () => {
-    isMounted = false; // prevent memory leak
-  };
-}, [imageId]);
+    return () => {
+      isMounted = false; // prevent memory leak
+    };
+  }, [imageId]);
 
   console.log("FILE META:", fileMeta);
   return (
@@ -127,6 +140,42 @@ useEffect(() => {
               if (!file) return;
 
               setFile(file);
+              setFile(file);
+
+              const reader = new FileReader();
+
+              reader.onload = function (ev) {
+
+                const buffer = ev.target.result;
+
+                const ifds = UTIF.decode(buffer);
+
+                UTIF.decodeImage(buffer, ifds[0]);
+
+                const rgba = UTIF.toRGBA8(ifds[0]);
+
+                const canvas = document.createElement("canvas");
+
+                canvas.width = ifds[0].width;
+                canvas.height = ifds[0].height;
+
+                const ctx = canvas.getContext("2d");
+
+                const imageData = ctx.createImageData(
+                  canvas.width,
+                  canvas.height
+                );
+
+                imageData.data.set(rgba);
+
+                ctx.putImageData(imageData, 0, 0);
+
+                const pngUrl = canvas.toDataURL("image/png");
+
+                setPreviewUrl(pngUrl);
+              };
+
+              reader.readAsArrayBuffer(file);
 
               setFileDetails({
                 name: file.name,
@@ -149,10 +198,48 @@ useEffect(() => {
                 id="fileInput"
                 accept=".tif,.tiff"
                 onChange={(e) => {
+
                   const file = e.target.files[0];
-                  setFile(file);
 
                   if (file) {
+
+                    setFile(file);
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (ev) {
+
+                      const buffer = ev.target.result;
+
+                      const ifds = UTIF.decode(buffer);
+
+                      UTIF.decodeImage(buffer, ifds[0]);
+
+                      const rgba = UTIF.toRGBA8(ifds[0]);
+
+                      const canvas = document.createElement("canvas");
+
+                      canvas.width = ifds[0].width;
+                      canvas.height = ifds[0].height;
+
+                      const ctx = canvas.getContext("2d");
+
+                      const imageData = ctx.createImageData(
+                        canvas.width,
+                        canvas.height
+                      );
+
+                      imageData.data.set(rgba);
+
+                      ctx.putImageData(imageData, 0, 0);
+
+                      const pngUrl = canvas.toDataURL("image/png");
+
+                      setPreviewUrl(pngUrl);
+                    };
+
+                    reader.readAsArrayBuffer(file);
+
                     setFileDetails({
                       name: file.name,
                       size: (file.size / 1024 / 1024).toFixed(2) + " MB",
@@ -193,53 +280,84 @@ useEffect(() => {
           </div>
 
         </div>
-<div className="mb-4 max-w-md">
-  <label className="text-sm font-medium text-gray-700">
-    Fiber Sampling Step (%)
-  </label>
+                {previewUrl && !imageId && (
+          <div className="bg-white border rounded-xl shadow-md p-6 mb-6">
 
-  <div className="flex items-center gap-2 mt-2">
-    <button
-      disabled={uploading || lockedStep}
-      onClick={() => setStepPercent((prev) => Math.max(1, prev - 1))}
-      className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-    >
-      -
-    </button>
+            <h2 className="text-lg font-semibold mb-4 text-[#5e8a86]">
+              Crop Metadata Region
+            </h2>
 
-    <input
-      type="number"
-      min={1}
-      max={100}
-      value={stepPercent}
-      disabled={uploading || lockedStep}
-      onChange={(e) =>
-        setStepPercent(Math.max(1, Math.min(100, Number(e.target.value))))
-      }
-      className="w-20 text-center border rounded px-2 py-1 disabled:bg-gray-100"
-    />
+<ReactCrop
+  crop={crop}
+onChange={(pixelCrop) => {
+  setCrop(pixelCrop);
+}}
 
-    <button
-      disabled={uploading || lockedStep}
-      onClick={() => setStepPercent((prev) => Math.min(100, prev + 1))}
-      className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-    >
-      +
-    </button>
-  </div>
+>
+              <img
+                src={previewUrl}
+                alt="preview"
+                className="max-h-[600px] object-contain"
+              />
+            </ReactCrop>
 
-  <p className="text-xs text-gray-600 mt-1">
-    {stepPercent}%
-  </p>
-</div>
+          </div>
+        )}
+        <div className="mb-4 max-w-md">
+          <label className="text-sm font-medium text-gray-700">
+            Fiber Sampling Step (%)
+          </label>
+
+          <div className="flex items-center gap-2 mt-2">
+            <button
+              disabled={uploading || lockedStep}
+              onClick={() => setStepPercent((prev) => Math.max(1, prev - 1))}
+              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            >
+              -
+            </button>
+
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={stepPercent}
+              disabled={uploading || lockedStep}
+              onChange={(e) =>
+                setStepPercent(Math.max(1, Math.min(100, Number(e.target.value))))
+              }
+              className="w-20 text-center border rounded px-2 py-1 disabled:bg-gray-100"
+            />
+
+            <button
+              disabled={uploading || lockedStep}
+              onClick={() => setStepPercent((prev) => Math.min(100, prev + 1))}
+              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            >
+              +
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-600 mt-1">
+            {stepPercent}%
+          </p>
+        </div>
         <div className="w-full mb-6 flex gap-4">
 
           {/* UPLOAD BUTTON */}
           <button
-  onClick={() => {
-    setLockedStep(true);   // 🔥 LOCK HERE
-    upload();
-  }}
+            onClick={async () => {
+
+              setLockedStep(true);
+
+              console.log("UPLOADING CROP:", crop);
+
+const data = await upload(crop);
+
+              if (data?.preview) {
+                setPreviewUrl(`${BASE_URL}${data.preview}`);
+              }
+            }}
             disabled={uploading}
             className={`flex-1 py-3 rounded-md font-medium transition flex items-center justify-center gap-2
     ${uploading
@@ -267,6 +385,9 @@ useEffect(() => {
           </button>
 
         </div>
+
+
+
         {/* CANVAS CARD */}
         {imageUrl && (
           <div className="bg-white border rounded-xl shadow-md p-6 mb-6">
@@ -279,7 +400,7 @@ useEffect(() => {
               imageId={imageId}
               imageUrl={imageUrl}
               ready={ready}
-              stepPercent={stepPercent}   
+              stepPercent={stepPercent}
               onTrace={(data) => {
                 if (data.metrics) {
                   setFibers((prev) => [
@@ -406,14 +527,14 @@ useEffect(() => {
                 <li className="flex items-center gap-2 px-1">
                   Fiber Segmentation Methodology
                 </li>
-<li className="mt-4">
-  <Link
-    href="/references"
-    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-300"
-  >
-    View Full References →
-  </Link>
-</li>              
+                <li className="mt-4">
+                  <Link
+                    href="/references"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-300"
+                  >
+                    View Full References →
+                  </Link>
+                </li>
               </ul>
             </div>
 

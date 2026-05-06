@@ -12,13 +12,13 @@ export default function useAnalysis() {
   const [fileMeta, setFileMeta] = useState(null);
 
   // ✅ Upload function (UPDATED)
-const upload = async () => {
+const upload = async (cropData) => {
   if (!file) return;
 
   setUploading(true);
 
   try {
-  const data = await uploadImage(file);
+  const data = await uploadImage(file, cropData);
 
   setImageId(data.image_id);
   // 🔥 THIS IS THE MISSING LINE

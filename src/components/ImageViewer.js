@@ -29,13 +29,13 @@ export default function ImageViewer({ result }) {
 />
     </div>
 
-    <div className="bg-white rounded-xl shadow-md p-3">
+    {/* <div className="bg-white rounded-xl shadow-md p-3">
      <ImageCard 
   title="Particle Circularity"
   src={result.circularity}
   icon={<Circle />} 
 />
-    </div>
+    </div> */}
 <div className="bg-white rounded-xl shadow-md p-3">
   <ImageCard
     title="Particle Outer Diameter"
@@ -49,11 +49,11 @@ export default function ImageViewer({ result }) {
 <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
   <div className="bg-white rounded-xl shadow-md p-3">
-    <ImageCard 
-      title="Fiber Histogram" 
-      src={result.fiber_hist} 
-      icon={<BarChart3 />} 
-    />
+<ImageCard 
+  title="Coverage Overlay" 
+  src={result.coverage_overlay} 
+  icon={<Image />} 
+/>
   </div>
 
   <div className="bg-white rounded-xl shadow-md p-3">
