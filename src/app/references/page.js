@@ -51,29 +51,29 @@ export default function ReferencesPage() {
             <div className="relative z-40">
 
                 {/* Header */}
-      <header className="bg-black border-b-2 border-[#5e8a86] px-6 py-4 md:px-12 flex justify-between items-center">
-        <div className="flex items-center justify-between w-full">
+                <header className="bg-black border-b-2 border-[#5e8a86] px-6 py-4 md:px-12 flex justify-between items-center">
+                    <div className="flex items-center justify-between w-full">
 
-          {/* LEFT LOGO */}
-          <Link href="/" className="cursor-pointer">
-            <img
-              src="/cmtilogo.png"
-              alt="CMTI Logo"
-              className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
-            />
-          </Link>
+                        {/* LEFT LOGO */}
+                        <Link href="/" className="cursor-pointer">
+                            <img
+                                src="/cmtilogo.png"
+                                alt="CMTI Logo"
+                                className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
+                            />
+                        </Link>
 
-          {/* RIGHT LOGO */}
-          <Link href="/" className="cursor-pointer">
-            <img
-              src="/fiberLogo.png"
-              alt="MHI Logo"
-              className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
-            />
-          </Link>
+                        {/* RIGHT LOGO */}
+                        <Link href="/" className="cursor-pointer">
+                            <img
+                                src="/fiberLogo.png"
+                                alt="MHI Logo"
+                                className="h-8 sm:h-10 md:h-12 bg-white/10 p-1 rounded-lg"
+                            />
+                        </Link>
 
-        </div>
-      </header>
+                    </div>
+                </header>
                 {/* Hero Section */}
                 <section className="pt-30 pb-15 px-6">
                     <div className="max-w-7xl mx-auto">
@@ -142,6 +142,25 @@ export default function ReferencesPage() {
                                 </div>
                             </div>
 
+                            {/* ISO 24597 */}
+                            <div className="md:col-span-2 flex justify-center">
+                                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl md:w-[48%]">
+                                    <h3 className="text-2xl font-bold mb-4 text-[#5e8a86]">
+                                        ISO/TS 24597
+                                    </h3>
+
+                                    <p className="text-slate-800 leading-relaxed mb-4">
+                                        Scanning Electron Microscopy — Methods of Evaluating Image Sharpness
+                                    </p>
+
+                                    <div className="text-sm text-slate-600 leading-relaxed">
+                                        Referenced for SEM image acquisition guidance, calibrated pixel-size handling,
+                                        contrast-to-noise considerations, and SEM image preprocessing practices aligned
+                                        with standardized SEM image evaluation methodologies.
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </section>
@@ -185,24 +204,24 @@ export default function ReferencesPage() {
                                         convexity, and Feret diameter analysis.
                                     </p>
 
-<Tooltip
-    content={
-        <ReferencePreviewCard
-            image="/ref1.png"
-            title="Particle Shape Factors and Their Use in Image Analysis"
-            source="Particle Technology Labs"
-            description="Reference used for circularity, solidity, aspect ratio, convexity, and Feret morphology descriptors."
-        />
-    }
->
-    <a
-        href="https://particletechlabs.com/ptl-press/particle-shape-factors-and-their-use-in-image-analysis-part-1-theory/"
-        target="_blank"
-        className="text-[#5e8a86] font-semibold hover:underline cursor-pointer"
-    >
-        View Reference →
-    </a>
-</Tooltip>
+                                    <Tooltip
+                                        content={
+                                            <ReferencePreviewCard
+                                                image="/ref1.png"
+                                                title="Particle Shape Factors and Their Use in Image Analysis"
+                                                source="Particle Technology Labs"
+                                                description="Reference used for circularity, solidity, aspect ratio, convexity, and Feret morphology descriptors."
+                                            />
+                                        }
+                                    >
+                                        <a
+                                            href="https://particletechlabs.com/ptl-press/particle-shape-factors-and-their-use-in-image-analysis-part-1-theory/"
+                                            target="_blank"
+                                            className="text-[#5e8a86] font-semibold hover:underline cursor-pointer"
+                                        >
+                                            View Reference →
+                                        </a>
+                                    </Tooltip>
                                 </div>
                             </div>
 
@@ -227,24 +246,24 @@ export default function ReferencesPage() {
                                         fiber/particle differentiation techniques.
                                     </p>
 
-<Tooltip
-    content={
-        <ReferencePreviewCard
-            image="/ref2.png"
-            title="Morphological Characterization and Image Analysis"
-            source="ScienceDirect"
-            description="Referenced for SEM morphology analysis, particle segmentation, and fiber differentiation techniques."
-        />
-    }
->
-    <a
-        href="https://www.sciencedirect.com/science/article/abs/pii/S1309104221000878"
-        target="_blank"
-        className="text-[#5e8a86] font-semibold hover:underline cursor-pointer"
-    >
-        View Reference →
-    </a>
-</Tooltip>
+                                    <Tooltip
+                                        content={
+                                            <ReferencePreviewCard
+                                                image="/ref2.png"
+                                                title="Morphological Characterization and Image Analysis"
+                                                source="ScienceDirect"
+                                                description="Referenced for SEM morphology analysis, particle segmentation, and fiber differentiation techniques."
+                                            />
+                                        }
+                                    >
+                                        <a
+                                            href="https://www.sciencedirect.com/science/article/abs/pii/S1309104221000878"
+                                            target="_blank"
+                                            className="text-[#5e8a86] font-semibold hover:underline cursor-pointer"
+                                        >
+                                            View Reference →
+                                        </a>
+                                    </Tooltip>
                                 </div>
                             </div>
 
@@ -335,33 +354,33 @@ export default function ReferencesPage() {
                         </div>
                     </div>
                 </section>
-      <footer className="bg-black text-slate-300 mt-20 py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
+                <footer className="bg-black text-slate-300 mt-20 py-20 px-6">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
 
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <img src="/cmtilogo.png" alt="CMTI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
-                <img src="/fiberLogo.png" alt="MHI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Fiber & Particle Analysis System</h3>
-              <p className="text-sm text-slate-400 max-w-sm mb-4">
-                High-precision system for fiber tracing, particle detection, and automated measurement reporting.
-              </p>
-            </div>
-
-
+                            <div className="md:col-span-2">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <img src="/cmtilogo.png" alt="CMTI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
+                                    <img src="/fiberLogo.png" alt="MHI Logo" className="h-10 bg-white/10 p-1.5 rounded-lg" />
+                                </div>
+                                <h3 className="text-xl font-bold text-white mb-2">Fiber & Particle Analysis System</h3>
+                                <p className="text-sm text-slate-400 max-w-sm mb-4">
+                                    High-precision system for fiber tracing, particle detection, and automated measurement reporting.
+                                </p>
+                            </div>
 
 
 
-          </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-            <p>&copy; {new Date().getFullYear()} Central Manufacturing Technology Institute. All rights reserved.</p>
-            <p className="mt-2 md:mt-0 font-mono">v1.0.0</p>
-          </div>
-        </div>
-      </footer>
+
+                        </div>
+
+                        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                            <p>&copy; {new Date().getFullYear()} Central Manufacturing Technology Institute. All rights reserved.</p>
+                            <p className="mt-2 md:mt-0 font-mono">v1.0.0</p>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
     );
